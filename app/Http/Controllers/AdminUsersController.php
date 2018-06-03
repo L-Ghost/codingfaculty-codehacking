@@ -6,8 +6,10 @@ use App\Photo;
 use App\Role;
 use App\User;
 
+use App\Http\Requests\Request;
 use App\Http\Requests\UsersEditRequest;
 use App\Http\Requests\UsersRequest;
+use Illuminate\Support\Facades\Session;
 
 class AdminUsersController extends Controller
 {
@@ -42,7 +44,7 @@ class AdminUsersController extends Controller
      */
     public function store(UsersRequest $request)
     {
-        $input = $request->all();
+        $input = $this->checkRequestPassword($request);
 
         if ($file = $request->file('photo_id')) {
             $name = time() . $file->getClientOriginalName();
@@ -52,8 +54,6 @@ class AdminUsersController extends Controller
 
             $input['photo_id'] = $photo->id;
         }
-
-        $input['password'] = bcrypt($request->password);
 
         User::create($input );
 
@@ -94,7 +94,7 @@ class AdminUsersController extends Controller
      */
     public function update(UsersEditRequest $request, $id)
     {
-        $input = $request->all();
+        $input = $this->checkRequestPassword($request);
         $user = User::findOrFail($id);
 
         if ($file = $request->file('photo_id')) {
@@ -107,6 +107,8 @@ class AdminUsersController extends Controller
 
         $user->update($input);
 
+        Session::flash('updated_user', 'the user has been updated');
+
         return redirect('/admin/users');
     }
 
@@ -118,6 +120,23 @@ class AdminUsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        unlink(public_path() . $user->photo->file);
+        $user->delete();
+
+        Session::flash('deleted_user', 'the user has been deleted');
+
+        return redirect('/admin/users');
+    }
+
+    private function checkRequestPassword(Request $request)
+    {
+        if (trim($request->password) == '') {
+            $input = $request->except('password');
+        } else {
+            $input = $request->all();
+            $input['password'] = bcrypt($request->password);
+        }
+        return $input;
     }
 }
