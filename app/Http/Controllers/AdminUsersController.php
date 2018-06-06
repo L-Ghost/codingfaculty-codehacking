@@ -108,7 +108,6 @@ class AdminUsersController extends Controller
         $user->update($input);
 
         Session::flash('updated_user', 'the user has been updated');
-
         return redirect('/admin/users');
     }
 
@@ -125,7 +124,6 @@ class AdminUsersController extends Controller
         $user->delete();
 
         Session::flash('deleted_user', 'the user has been deleted');
-
         return redirect('/admin/users');
     }
 
