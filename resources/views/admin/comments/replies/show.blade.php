@@ -5,7 +5,7 @@
 
     @if(count($replies))
 
-        <h1>replies</h1>
+        <h1>Replies</h1>
 
         <table class="table">
             <thead>
@@ -26,7 +26,7 @@
                     <td>{{$reply->email}}</td>
                     <td>{{$reply->body}}</td>
                     <td>
-                        <a href="{{route('home.post', $reply->comment->post_id)}}">View Post</a>
+                        <a href="{{route('home.post', $reply->comment->post->slug)}}">View Post</a>
                     </td>
                     <td>
                         @if($reply->is_active == 1)

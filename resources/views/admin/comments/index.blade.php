@@ -26,7 +26,7 @@
                         <td>{{$comment->email}}</td>
                         <td>{{$comment->body}}</td>
                         <td>
-                            <a href="{{route('home.post', $comment->post->id)}}">View Post</a>
+                            <a href="{{route('home.post', $comment->post->slug)}}">View Post</a>
                         </td>
                         <td>
                             <a href="{{route('admin.comment.replies.show', $comment->id)}}">View Replies</a>
@@ -68,5 +68,11 @@
         <h1 class="text-center">No comments</h1>
 
     @endif
+
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-5">
+            {{$comments->render()}}
+        </div>
+    </div>
 
 @stop
