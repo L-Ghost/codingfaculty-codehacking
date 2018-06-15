@@ -73,7 +73,7 @@
             <!-- Comment -->
             <div class="media">
                 <a class="pull-left" href="#">
-                    <img style="height: 64px;" class="media-object" src="{{$comment->photo}}" alt="">
+                    <img style="height: 64px;" class="media-object" src="{{$comment->photo ? $comment->photo : Auth::user()->gravatar}}" alt="">
                 </a>
                 <div class="media-body">
                     <h4 class="media-heading">{{$comment->author}}
@@ -90,7 +90,7 @@
                                 <!-- Nested Comment -->
                                 <div class="nested-comment media">
                                     <a class="pull-left" href="#">
-                                        <img style="height: 64px;" class="media-object" src="{{$reply->photo}}" alt="">
+                                        <img style="height: 64px;" class="media-object" src="{{$reply->photo ? $reply->photo : Auth::user()->gravatar}}" alt="">
                                     </a>
                                     <div class="media-body">
                                         <h4 class="media-heading">{{$reply->author}}
