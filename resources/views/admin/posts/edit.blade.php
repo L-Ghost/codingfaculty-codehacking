@@ -7,7 +7,7 @@
     <div class="row">
 
         <div class="col-sm-3">
-            <img src="{{$post->photo->file}}" class="img-responsive">
+            <img src="{{$post->photo ? $post->photo->file : 'http://placehold.it/400x400'}}" class="img-responsive">
         </div>
 
         <div class="col-sm-9">

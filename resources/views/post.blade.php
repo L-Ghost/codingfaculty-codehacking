@@ -130,6 +130,33 @@
 
                         @endforeach
 
+                    @else
+
+                        <div class="comment-reply-container">
+
+                            <button class="toggle-reply btn-primary pull-right">Reply</button>
+
+                            <div class="comment-reply col-sm-8">
+
+                                {!! Form::open(['method' => 'POST', 'action' => 'CommentRepliesController@createReply']) !!}
+
+                                <input type="hidden" name="comment_id" value="{{$comment->id}}">
+
+                                <div class="form-group">
+                                    {!! Form::label('body', 'Send a Reply:') !!}
+                                    {!! Form::textarea('body', null, ['class' => 'form-control', 'rows' => 2]) !!}
+                                </div>
+
+                                <div class="form-group">
+                                    {!! Form::submit('Post Reply', ['class' => 'btn btn-primary']) !!}
+                                </div>
+
+                                {!! Form::close() !!}
+
+                            </div>
+
+                        </div>
+
                     @endif
 
                 </div>
