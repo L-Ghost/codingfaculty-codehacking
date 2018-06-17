@@ -29,6 +29,13 @@
 
     <hr>
 
+    <!-- Disqus -->
+    @if(View::exists('includes.disqus'))
+        @include('includes.disqus')
+    @endif
+
+    <hr>
+
     @if(Session::has('comment_message'))
 
         {{session('comment_message')}}

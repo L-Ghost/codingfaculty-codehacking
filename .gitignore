@@ -6,3 +6,4 @@ Homestead.json
 .env
 public/images
 .idea
+/resources/views/includes/disqus.blade.php
